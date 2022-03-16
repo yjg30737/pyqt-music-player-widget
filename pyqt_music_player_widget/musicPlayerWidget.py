@@ -2,7 +2,7 @@ from mutagen import mp3
 
 from PyQt5.QtCore import QUrl, pyqtSignal
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout
 
 from pyqt_music_slider.musicSlider import MusicSlider
 from pyqt_svg_icon_pushbutton.svgIconPushButton import SvgIconPushButton
