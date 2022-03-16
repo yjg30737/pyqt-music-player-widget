@@ -10,6 +10,7 @@ PyQt5 >= 5.8
 ## Included Packages
 * <a href="https://mutagen.readthedocs.io/en/latest/index.html">mutagen</a>
 * <a href="https://github.com/yjg30737/pyqt-music-slider.git">pyqt-music-slider</a>
+* <a href="https://github.com/yjg30737/pyqt-svg-icon-pushbutton.git">pyqt-svg-icon-pushbutton</a>
 
 ```Mutagen``` is included because get the full length of the media.
 This only works for mp3 extension. This is just very basic music player for being used as prototype.
