@@ -5,7 +5,7 @@ from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout, QVBoxLayout
 
 from pyqt_music_slider.musicSlider import MusicSlider
-from pyqt_resource_helper.pyqtResourceHelper import PyQtResourceHelper
+from pyqt_svg_icon_pushbutton.svgIconPushButton import SvgIconPushButton
 from PyQt5.QtCore import Qt
 
 
@@ -38,16 +38,15 @@ class MusicPlayerWidget(QWidget):
         topWidget = QWidget()
         topWidget.setLayout(lay)
 
-        self.__playBtn = QPushButton()
+        self.__playBtn = SvgIconPushButton()
+        self.__playBtn.setIcon('ico/play.svg')
         self.__playBtn.setEnabled(False)
 
-        self.__stopBtn = QPushButton()
+        self.__stopBtn = SvgIconPushButton()
+        self.__stopBtn.setIcon('ico/stop.svg')
         self.__stopBtn.setEnabled(False)
 
         btns = [self.__playBtn, self.__stopBtn]
-
-        PyQtResourceHelper.setStyleSheet(btns, ['style/button.css'])
-        PyQtResourceHelper.setIcon(btns, ['ico/play.png', 'ico/stop.png'])
 
         self.__playBtn.clicked.connect(self.togglePlayback)
         self.__stopBtn.clicked.connect(self.stop)
@@ -117,13 +116,13 @@ class MusicPlayerWidget(QWidget):
         self.__cur_len_lbl.setText(self.__getMediaLengthHumanFriendly(filename))
 
     def play(self):
-        PyQtResourceHelper.setIcon([self.__playBtn], ['ico/pause.png'])
+        self.__playBtn.setIcon('ico/pause.svg')
         self.__mediaPlayer.play()
         self.played.emit(True)
         self.__stopBtn.setEnabled(True)
 
     def pause(self):
-        PyQtResourceHelper.setIcon([self.__playBtn], ['ico/play.png'])
+        self.__playBtn.setIcon('ico/play.svg')
         self.__mediaPlayer.pause()
 
     def togglePlayback(self):
@@ -135,7 +134,7 @@ class MusicPlayerWidget(QWidget):
             self.play()
 
     def stop(self):
-        PyQtResourceHelper.setIcon([self.__playBtn], ['ico/pause.png'])
+        self.__playBtn.setIcon('ico/play.svg')
         self.__mediaPlayer.stop()
         self.__stopBtn.setEnabled(False)
         self.played.emit(False)
