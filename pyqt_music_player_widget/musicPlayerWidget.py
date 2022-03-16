@@ -104,6 +104,8 @@ class MusicPlayerWidget(QWidget):
 
     def updatePosition(self, pos):
         self.__slider.setValue(pos)
+        if pos == self.__slider.maximum():
+            self.stop()
         self.__timerLbl.setText(self.formatTime(pos))
 
     def updateDuration(self, duration):
