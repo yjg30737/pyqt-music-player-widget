@@ -20,19 +20,21 @@ class MusicPlayerWidget(QWidget):
         self.__mediaPlayer = QMediaPlayer()
         self.__mediaPlayer.setNotifyInterval(1)
 
-        self.__timer_lbl = QLabel()
-        self.__cur_len_lbl = QLabel()
+        self.__timerLbl = QLabel()
+        self.__curLenLbl = QLabel()
 
         self.__slider = slider if slider else MusicSlider()
         self.__slider.updatePosition.connect(self.updatePosition)
 
-        self.__timer_lbl.setText('00:00:00')
-        self.__cur_len_lbl.setText('00:00:00')
+        self.__zeroTimeStr = '00:00:00'
+
+        self.__timerLbl.setText(self.__zeroTimeStr)
+        self.__curLenLbl.setText(self.__zeroTimeStr)
 
         lay = QHBoxLayout()
-        lay.addWidget(self.__timer_lbl)
+        lay.addWidget(self.__timerLbl)
         lay.addWidget(self.__slider)
-        lay.addWidget(self.__cur_len_lbl)
+        lay.addWidget(self.__curLenLbl)
         lay.setContentsMargins(0, 0, 0, 0)
 
         topWidget = QWidget()
@@ -102,7 +104,7 @@ class MusicPlayerWidget(QWidget):
 
     def updatePosition(self, pos):
         self.__slider.setValue(pos)
-        self.__timer_lbl.setText(self.formatTime(pos))
+        self.__timerLbl.setText(self.formatTime(pos))
 
     def updateDuration(self, duration):
         self.__slider.setRange(0, duration)
@@ -113,7 +115,7 @@ class MusicPlayerWidget(QWidget):
         mediaContent = QMediaContent(QUrl.fromLocalFile(filename))  # it also can be used as playlist
         self.__mediaPlayer.setMedia(mediaContent)
         self.__playBtn.setEnabled(True)
-        self.__cur_len_lbl.setText(self.__getMediaLengthHumanFriendly(filename))
+        self.__curLenLbl.setText(self.__getMediaLengthHumanFriendly(filename))
 
     def play(self):
         self.__playBtn.setIcon('ico/pause.svg')
