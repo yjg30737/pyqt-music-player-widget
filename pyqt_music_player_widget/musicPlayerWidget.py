@@ -1,4 +1,3 @@
-import os, sys
 from mutagen import mp3
 
 from PyQt5.QtCore import QUrl, pyqtSignal
