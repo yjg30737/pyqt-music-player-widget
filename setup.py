@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     description='PyQt music player widget',
     package_data={'pyqt_music_player_widget.style': ['button.css'],
-                  'pyqt_music_player_widget.ico': ['pause.png', 'play.png', 'stop.png']},
+                  'pyqt_music_player_widget.ico': ['pause.svg', 'play.svg', 'stop.svg']},
     url='https://github.com/yjg30737/pyqt-music-player-widget.git',
     install_requires=[
         'PyQt5>=5.8',
