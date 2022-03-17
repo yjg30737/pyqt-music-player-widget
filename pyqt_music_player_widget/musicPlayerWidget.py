@@ -24,7 +24,8 @@ class MusicPlayerWidget(QWidget):
         self.__curLenLbl = QLabel()
 
         self.__slider = slider if slider else MusicSlider()
-        self.__slider.updatePosition.connect(self.updatePosition)
+        self.__slider.pressed.connect(self.__handlePressed)
+        self.__slider.released.connect(self.__handleReleased)
 
         self.__zeroTimeStr = '00:00:00'
 
@@ -42,6 +43,7 @@ class MusicPlayerWidget(QWidget):
 
         self.__playBtn = SvgIconPushButton()
         self.__playBtn.setIcon('ico/play.svg')
+        self.__playBtn.setObjectName('play')
         self.__playBtn.setEnabled(False)
 
         self.__stopBtn = SvgIconPushButton()
@@ -69,7 +71,6 @@ class MusicPlayerWidget(QWidget):
 
         self.setLayout(lay)
 
-        self.__slider.seeked.connect(self.setPosition)
         self.__mediaPlayer.positionChanged.connect(self.updatePosition)
         self.__mediaPlayer.durationChanged.connect(self.updateDuration)
 
@@ -87,8 +88,18 @@ class MusicPlayerWidget(QWidget):
 
         return song_length
 
+    def __handlePressed(self, pos):
+        self.__mediaPlayer.pause()
+        self.setPosition(pos)
+
+    def __handleReleased(self, pos):
+        self.setPosition(pos)
+        if self.__playBtn.objectName() == 'play':
+            pass
+        else:
+            self.__mediaPlayer.play()
+
     def setPosition(self, pos):
-        # if (qAbs(self.__mediaPlayer.position()) - pos) > 99:
         self.__mediaPlayer.setPosition(pos)
 
     # convert millisecond into hh:mm:ss
@@ -121,12 +132,14 @@ class MusicPlayerWidget(QWidget):
 
     def play(self):
         self.__playBtn.setIcon('ico/pause.svg')
+        self.__playBtn.setObjectName('pause')
         self.__mediaPlayer.play()
         self.played.emit(True)
         self.__stopBtn.setEnabled(True)
 
     def pause(self):
         self.__playBtn.setIcon('ico/play.svg')
+        self.__playBtn.setObjectName('play')
         self.__mediaPlayer.pause()
 
     def togglePlayback(self):
@@ -139,6 +152,7 @@ class MusicPlayerWidget(QWidget):
 
     def stop(self):
         self.__playBtn.setIcon('ico/play.svg')
+        self.__playBtn.setObjectName('play')
         self.__mediaPlayer.stop()
         self.__stopBtn.setEnabled(False)
         self.played.emit(False)
