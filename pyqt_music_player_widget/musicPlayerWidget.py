@@ -110,7 +110,7 @@ class MusicPlayerWidget(QWidget):
     def formatTime(self, millis):
         millis = int(millis)
         seconds = (millis / 1000) % 60
-        seconds = round(seconds)
+        seconds = int(seconds)
         minutes = (millis / (1000 * 60)) % 60
         minutes = int(minutes)
         hours = (millis / (1000 * 60 * 60)) % 24
