@@ -25,6 +25,7 @@ class MusicPlayerWidget(QWidget):
 
         self.__slider = slider if slider else MusicSlider()
         self.__slider.pressed.connect(self.__handlePressed)
+        self.__slider.dragged.connect(self.__handleDragged)
         self.__slider.released.connect(self.__handleReleased)
 
         self.__zeroTimeStr = '00:00:00'
@@ -91,6 +92,9 @@ class MusicPlayerWidget(QWidget):
     def __handlePressed(self, pos):
         self.__mediaPlayer.pause()
         self.setPosition(pos)
+
+    def __handleDragged(self, pos):
+        self.__timerLbl.setText(self.formatTime(pos))
 
     def __handleReleased(self, pos):
         self.setPosition(pos)
