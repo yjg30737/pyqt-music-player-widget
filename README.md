@@ -60,3 +60,8 @@ if __name__ == "__main__":
     player.show()
     sys.exit(app.exec_())
 ```
+
+Result
+
+![image](https://user-images.githubusercontent.com/55078043/159100272-0935aa46-598c-42b6-9c7f-4e1cf52d97f9.png)
+
