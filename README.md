@@ -9,7 +9,7 @@ PyQt5 >= 5.8
 
 ## Included Packages
 * <a href="https://mutagen.readthedocs.io/en/latest/index.html">mutagen</a>
-* <a href="https://github.com/yjg30737/pyqt-music-slider.git">pyqt-music-slider</a>
+* <a href="https://github.com/yjg30737/pyqt-media-slider.git">pyqt-media-slider</a>
 * <a href="https://github.com/yjg30737/pyqt-svg-icon-pushbutton.git">pyqt-svg-icon-pushbutton</a>
 
 ```Mutagen``` is included because get the full length of the media.
