@@ -4,7 +4,7 @@ from PyQt5.QtCore import QUrl, pyqtSignal
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout
 
-from pyqt_music_slider.musicSlider import MusicSlider
+from pyqt_media_slider.mediaSlider import MediaSlider
 from pyqt_svg_icon_pushbutton.svgIconPushButton import SvgIconPushButton
 from PyQt5.QtCore import Qt
 
@@ -23,7 +23,7 @@ class MusicPlayerWidget(QWidget):
         self.__timerLbl = QLabel()
         self.__curLenLbl = QLabel()
 
-        self.__slider = slider if slider else MusicSlider()
+        self.__slider = slider if slider else MediaSlider()
         self.__slider.pressed.connect(self.__handlePressed)
         self.__slider.dragged.connect(self.__handleDragged)
         self.__slider.released.connect(self.__handleReleased)
