@@ -13,7 +13,7 @@ setup(
     install_requires=[
         'PyQt5>=5.8',
         'mutagen>=1.45.1',
-        'pyqt-media-slider @ git+https://git@github.com/yjg30737/pyqt-media-slider.git@main',
-        'pyqt-svg-icon-pushbutton @ git+https://git@github.com/yjg30737/pyqt-svg-icon-pushbutton.git@main'
+        'pyqt-media-slider>=0.0.1',
+        'pyqt-svg-button>=0.0.1'
     ]
 )

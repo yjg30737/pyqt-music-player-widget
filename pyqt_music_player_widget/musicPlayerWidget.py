@@ -5,7 +5,7 @@ from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout
 
 from pyqt_media_slider.mediaSlider import MediaSlider
-from pyqt_svg_icon_pushbutton.svgIconPushButton import SvgIconPushButton
+from pyqt_svg_button.svgButton import SvgButton
 from PyQt5.QtCore import Qt
 
 
@@ -42,12 +42,12 @@ class MusicPlayerWidget(QWidget):
         topWidget = QWidget()
         topWidget.setLayout(lay)
 
-        self.__playBtn = SvgIconPushButton()
+        self.__playBtn = SvgButton()
         self.__playBtn.setIcon('ico/play.svg')
         self.__playBtn.setObjectName('play')
         self.__playBtn.setEnabled(False)
 
-        self.__stopBtn = SvgIconPushButton()
+        self.__stopBtn = SvgButton()
         self.__stopBtn.setIcon('ico/stop.svg')
         self.__stopBtn.setEnabled(False)
 
