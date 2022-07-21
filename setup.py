@@ -1,4 +1,12 @@
+import codecs
+import os
+
 from setuptools import setup, find_packages
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
+    long_description = "\n" + fh.read()
 
 setup(
     name='pyqt-music-player-widget',
@@ -10,6 +18,8 @@ setup(
     description='PyQt music player widget',
     package_data={'pyqt_music_player_widget.ico': ['pause.svg', 'play.svg', 'stop.svg']},
     url='https://github.com/yjg30737/pyqt-music-player-widget.git',
+    long_description_content_type='text/markdown',
+    long_description=long_description,
     install_requires=[
         'PyQt5>=5.8',
         'mutagen>=1.45.1',
