@@ -12,14 +12,14 @@ PyQt5 >= 5.8
 * <a href="https://github.com/yjg30737/pyqt-media-slider.git">pyqt-media-slider</a>
 * <a href="https://github.com/yjg30737/pyqt-svg-button.git">pyqt-svg-button</a>
 
-This is using `Mutagen` to get the full length of the media.
+This is using `mutagen` to get the full length of the media.
 
 This only works for mp3 extension.
 
 ## Example
 ```python
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QApplication, QFormLayout
-from pyqt_find_path_widget import FindPathWidget
+from pyqt_find_path_widget import FindPathWidget  # https://github.com/yjg30737/pyqt-find-path-widget.git
 
 from pyqt_music_player_widget import MusicPlayerWidget
 
