@@ -5,7 +5,7 @@ PyQt music player widget
 PyQt5 >= 5.8
 
 ## Setup
-`pip3 install git+https://github.com/yjg30737/pyqt-music-player-widget --upgrade`
+`python -m pip install pyqt-music-player-widget`
 
 ## Included Packages
 * <a href="https://mutagen.readthedocs.io/en/latest/index.html">mutagen</a>
