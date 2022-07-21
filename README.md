@@ -30,7 +30,7 @@ class MusicPlayerExample(QWidget):
         self.__initUi()
 
     def __initUi(self):
-        self.__findPathWidget = FindPathWidget() # https://github.com/yjg30737/pyqt-find-path-widget.git
+        self.__findPathWidget = FindPathWidget()
         self.__findPathWidget.setExtOfFiles('Audio Files (*.mp3)')
         self.__findPathWidget.added.connect(self.__added)
 
