@@ -53,7 +53,7 @@ class MusicPlayerWidget(QWidget):
 
         btns = [self.__playBtn, self.__stopBtn]
 
-        self.__playBtn.clicked.connect(self.togglePlayback)
+        self.__playBtn.clicked.connect(self.__togglePlayback)
         self.__stopBtn.clicked.connect(self.stop)
 
         lay = QHBoxLayout()
@@ -72,8 +72,8 @@ class MusicPlayerWidget(QWidget):
 
         self.setLayout(lay)
 
-        self.__mediaPlayer.positionChanged.connect(self.updatePosition)
-        self.__mediaPlayer.durationChanged.connect(self.updateDuration)
+        self.__mediaPlayer.positionChanged.connect(self.__updatePosition)
+        self.__mediaPlayer.durationChanged.connect(self.__updateDuration)
 
     def __getMediaLengthHumanFriendly(self, filename):
         audio = mp3.MP3(filename)
@@ -91,23 +91,23 @@ class MusicPlayerWidget(QWidget):
 
     def __handlePressed(self, pos):
         self.__mediaPlayer.pause()
-        self.setPosition(pos)
+        self.__setPosition(pos)
 
     def __handleDragged(self, pos):
-        self.__timerLbl.setText(self.formatTime(pos))
+        self.__timerLbl.setText(self.__formatTime(pos))
 
     def __handleReleased(self, pos):
-        self.setPosition(pos)
+        self.__setPosition(pos)
         if self.__playBtn.objectName() == 'play':
             pass
         else:
             self.__mediaPlayer.play()
 
-    def setPosition(self, pos):
+    def __setPosition(self, pos):
         self.__mediaPlayer.setPosition(pos)
 
     # convert millisecond into hh:mm:ss
-    def formatTime(self, millis):
+    def __formatTime(self, millis):
         millis = int(millis)
         seconds = (millis / 1000) % 60
         seconds = int(seconds)
@@ -117,13 +117,13 @@ class MusicPlayerWidget(QWidget):
 
         return "%02d:%02d:%02d" % (hours, minutes, seconds)
 
-    def updatePosition(self, pos):
+    def __updatePosition(self, pos):
         self.__slider.setValue(pos)
         if pos == self.__slider.maximum():
             self.stop()
-        self.__timerLbl.setText(self.formatTime(pos))
+        self.__timerLbl.setText(self.__formatTime(pos))
 
-    def updateDuration(self, duration):
+    def __updateDuration(self, duration):
         self.__slider.setRange(0, duration)
         self.__slider.setEnabled(duration > 0)
         self.__slider.setPageStep(duration / 1000)
@@ -152,7 +152,7 @@ class MusicPlayerWidget(QWidget):
         self.__playBtn.setObjectName('play')
         self.__mediaPlayer.pause()
 
-    def togglePlayback(self):
+    def __togglePlayback(self):
         if self.__mediaPlayer.mediaStatus() == QMediaPlayer.NoMedia:
             pass  # or openFile()
         elif self.__mediaPlayer.state() == QMediaPlayer.PlayingState:
