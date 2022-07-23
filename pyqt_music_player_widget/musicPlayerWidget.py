@@ -134,6 +134,12 @@ class MusicPlayerWidget(QWidget):
         self.__playBtn.setEnabled(True)
         self.__curLenLbl.setText(self.__getMediaLengthHumanFriendly(filename))
 
+    def getCurrentMediaPosition(self):
+        return self.__mediaPlayer.position()
+
+    def getCurrentMediaLength(self):
+        return self.__slider.maximum()
+
     def play(self):
         self.__playBtn.setIcon('ico/pause.svg')
         self.__playBtn.setObjectName('pause')
@@ -148,7 +154,7 @@ class MusicPlayerWidget(QWidget):
 
     def togglePlayback(self):
         if self.__mediaPlayer.mediaStatus() == QMediaPlayer.NoMedia:
-            pass # or openFile()
+            pass  # or openFile()
         elif self.__mediaPlayer.state() == QMediaPlayer.PlayingState:
             self.pause()
         else:
