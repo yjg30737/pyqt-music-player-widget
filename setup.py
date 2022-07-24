@@ -10,7 +10,7 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
 
 setup(
     name='pyqt-music-player-widget',
-    version='0.0.3',
+    version='0.0.31',
     author='Jung Gyu Yoon',
     author_email='yjg30737@gmail.com',
     license='MIT',
