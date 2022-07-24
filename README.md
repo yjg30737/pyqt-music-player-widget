@@ -16,6 +16,10 @@ This is using `mutagen` to get the full length of the media.
 
 This only works for mp3 extension.
 
+## Method/Signal Overview
+* Methods - `play()`, `pause()`, `stop()`
+* Signals - `played(bool)`, `positionUpdated(int)`, `durationUpdated(int)`
+
 ## Example
 ```python
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QApplication, QFormLayout
