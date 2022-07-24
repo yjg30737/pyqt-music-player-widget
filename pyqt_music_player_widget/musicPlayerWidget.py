@@ -11,6 +11,8 @@ from PyQt5.QtCore import Qt
 
 class MusicPlayerWidget(QWidget):
     played = pyqtSignal(bool)
+    positionUpdated = pyqtSignal(int)
+    durationUpdated = pyqtSignal(int)
 
     def __init__(self, slider=None):
         super().__init__()
@@ -122,11 +124,13 @@ class MusicPlayerWidget(QWidget):
         if pos == self.__slider.maximum():
             self.stop()
         self.__timerLbl.setText(self.__formatTime(pos))
+        self.positionUpdated.emit(pos)
 
     def __updateDuration(self, duration):
         self.__slider.setRange(0, duration)
         self.__slider.setEnabled(duration > 0)
         self.__slider.setPageStep(duration / 1000)
+        self.durationUpdated.emit(duration)
 
     def setMedia(self, filename):
         mediaContent = QMediaContent(QUrl.fromLocalFile(filename))  # it also can be used as playlist
