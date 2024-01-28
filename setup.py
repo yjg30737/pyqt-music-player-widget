@@ -17,13 +17,13 @@ setup(
     packages=find_packages(),
     description='PyQt music player widget',
     package_data={'pyqt_music_player_widget.ico': ['pause.svg', 'play.svg', 'stop.svg']},
-    url='https://github.com/yjg30737/pyqt-music-player-widget.git',
+    url='https://github.com/nikonru/pyqt-music-player-widget.git',
     long_description_content_type='text/markdown',
     long_description=long_description,
     install_requires=[
         'PyQt5>=5.8',
         'mutagen>=1.45.1',
-        'pyqt-media-slider>=0.0.1',
+        'git+https://github.com/nikonru/pyqt-media-slider>=0.0.1',
         'pyqt-svg-button>=0.0.1',
         'absresgetter>=0.0.1'
     ]
