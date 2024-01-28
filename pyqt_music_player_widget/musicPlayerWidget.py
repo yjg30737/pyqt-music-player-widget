@@ -14,11 +14,11 @@ class MusicPlayerWidget(QWidget):
     positionUpdated = pyqtSignal(int)
     durationUpdated = pyqtSignal(int)
 
-    def __init__(self, slider=None):
+    def __init__(self, slider=None, volume=False):
         super().__init__()
-        self.__initUi(slider)
+        self.__initUi(slider, volume)
 
-    def __initUi(self, slider=None):
+    def __initUi(self, slider=None, volume=False):
         self.__mediaPlayer = QMediaPlayer()
         self.__mediaPlayer.setNotifyInterval(1)
 
@@ -39,6 +39,25 @@ class MusicPlayerWidget(QWidget):
         lay.addWidget(self.__timerLbl)
         lay.addWidget(self.__slider)
         lay.addWidget(self.__curLenLbl)
+
+        if volume:
+            self.__volume = 100
+            self.__mute = False
+
+            self.__volume_slider = MediaSlider()
+            self.__volume_slider.setSliderPosition(self.__volume * 100)
+            self.__volume_slider.released.connect(self.__volumeChanged)
+            self.__volume_slider.dragged.connect(self.__volumeChanged)
+
+            self.__muteBtn = SvgButton()
+            self.__muteBtn.setIcon('ico/play.svg')
+            self.__muteBtn.setObjectName('mute')
+
+            self.__muteBtn.clicked.connect(self.__toggleMute)
+
+            lay.addWidget(self.__muteBtn)
+            lay.addWidget(self.__volume_slider)
+
         lay.setContentsMargins(0, 0, 0, 0)
 
         topWidget = QWidget()
@@ -90,6 +109,10 @@ class MusicPlayerWidget(QWidget):
         song_length = '{:0>2d}:{:0>2d}:{:0>2d}'.format(int(h), int(m), int(s))
 
         return song_length
+
+    def __volumeChanged(self, pos):
+        self.__volume = pos // 100
+        self.__mediaPlayer.setVolume(self.__volume)
 
     def __handlePressed(self, pos):
         self.__mediaPlayer.pause()
@@ -163,6 +186,19 @@ class MusicPlayerWidget(QWidget):
             self.pause()
         else:
             self.play()
+
+    def __toggleMute(self):
+        self.__mute = not self.__mute
+        self.__volume_slider.setEnabled(not self.__mute)
+
+        if self.__mute:
+            self.__volume_slider.setSliderPosition(0)
+            self.__muteBtn.setIcon('ico/pause.svg')
+        else:
+            self.__volume_slider.setSliderPosition(self.__volume * 100)
+            self.__muteBtn.setIcon('ico/play.svg')
+
+        self.__muteBtn.setObjectName('mute')
 
     def stop(self):
         self.__playBtn.setIcon('ico/play.svg')
