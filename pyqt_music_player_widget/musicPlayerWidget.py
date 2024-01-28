@@ -193,9 +193,11 @@ class MusicPlayerWidget(QWidget):
 
         if self.__mute:
             self.__volume_slider.setSliderPosition(0)
+            self.__mediaPlayer.setVolume(0)
             self.__muteBtn.setIcon('ico/pause.svg')
         else:
             self.__volume_slider.setSliderPosition(self.__volume * 100)
+            self.__mediaPlayer.setVolume(self.__volume)
             self.__muteBtn.setIcon('ico/play.svg')
 
         self.__muteBtn.setObjectName('mute')
