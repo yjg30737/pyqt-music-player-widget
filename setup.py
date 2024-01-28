@@ -24,6 +24,7 @@ setup(
         'PyQt5>=5.8',
         'mutagen>=1.45.1',
         'pyqt-media-slider>=0.0.1',
-        'pyqt-svg-button>=0.0.1'
+        'pyqt-svg-button>=0.0.1',
+        'absresgetter>=0.0.1'
     ]
 )
