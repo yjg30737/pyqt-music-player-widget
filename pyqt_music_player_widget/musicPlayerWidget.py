@@ -18,12 +18,13 @@ class MusicPlayerWidget(QWidget):
         super().__init__()
         self.__initUi(slider, volume)
 
-    def __initUi(self, slider=None, volume=False):
+    def __initUi(self, slider=None, volume=False, volume_width=100):
         self.__mediaPlayer = QMediaPlayer()
         self.__mediaPlayer.setNotifyInterval(1)
 
         self.__timerLbl = QLabel()
         self.__curLenLbl = QLabel()
+        self.__slash = QLabel()
 
         self.__slider = slider if slider else MediaSlider()
         self.__slider.pressed.connect(self.__handlePressed)
@@ -34,23 +35,28 @@ class MusicPlayerWidget(QWidget):
 
         self.__timerLbl.setText(self.__zeroTimeStr)
         self.__curLenLbl.setText(self.__zeroTimeStr)
+        self.__slash.setText("/")
 
         lay = QHBoxLayout()
-        lay.addWidget(self.__timerLbl)
         lay.addWidget(self.__slider)
+        lay.addWidget(self.__timerLbl)
+        lay.addWidget(self.__slash)
         lay.addWidget(self.__curLenLbl)
+
+
 
         if volume:
             self.__volume = 100
             self.__mute = False
 
             self.__volume_slider = MediaSlider()
+            self.__volume_slider.setFixedWidth(volume_width)
             self.__volume_slider.setSliderPosition(self.__volume * 100)
             self.__volume_slider.released.connect(self.__volumeChanged)
             self.__volume_slider.dragged.connect(self.__volumeChanged)
 
             self.__muteBtn = SvgButton()
-            self.__muteBtn.setIcon('ico/play.svg')
+            self.__muteBtn.setIcon('ico/volume.svg')
             self.__muteBtn.setObjectName('mute')
 
             self.__muteBtn.clicked.connect(self.__toggleMute)
@@ -194,11 +200,11 @@ class MusicPlayerWidget(QWidget):
         if self.__mute:
             self.__volume_slider.setSliderPosition(0)
             self.__mediaPlayer.setVolume(0)
-            self.__muteBtn.setIcon('ico/pause.svg')
+            self.__muteBtn.setIcon('ico/mute.svg')
         else:
             self.__volume_slider.setSliderPosition(self.__volume * 100)
             self.__mediaPlayer.setVolume(self.__volume)
-            self.__muteBtn.setIcon('ico/play.svg')
+            self.__muteBtn.setIcon('ico/volume.svg')
 
         self.__muteBtn.setObjectName('mute')
 
