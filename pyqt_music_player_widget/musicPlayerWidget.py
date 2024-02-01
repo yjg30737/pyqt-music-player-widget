@@ -43,8 +43,6 @@ class MusicPlayerWidget(QWidget):
         lay.addWidget(self.__slash)
         lay.addWidget(self.__curLenLbl)
 
-
-
         if volume:
             self.__volume = 100
             self.__mute = False
