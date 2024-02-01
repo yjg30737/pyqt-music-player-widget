@@ -16,7 +16,7 @@ setup(
     license='MIT',
     packages=find_packages(),
     description='PyQt music player widget',
-    package_data={'pyqt_music_player_widget.ico': ['pause.svg', 'play.svg', 'stop.svg']},
+    package_data={'pyqt_music_player_widget.ico': ['pause.svg', 'play.svg', 'stop.svg', 'volume.svg', 'mute.svg']},
     url='https://github.com/nikonru/pyqt-music-player-widget.git',
     long_description_content_type='text/markdown',
     long_description=long_description,
