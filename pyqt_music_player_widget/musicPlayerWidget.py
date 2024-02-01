@@ -14,7 +14,7 @@ class MusicPlayerWidget(QWidget):
     positionUpdated = pyqtSignal(int)
     durationUpdated = pyqtSignal(int)
 
-    def __init__(self, slider=None, volume=False):
+    def __init__(self, slider=None, volume=True):
         super().__init__()
         self.__initUi(slider, volume)
 
