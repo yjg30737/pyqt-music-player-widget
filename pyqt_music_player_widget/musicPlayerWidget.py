@@ -183,7 +183,7 @@ class MusicPlayerWidget(QWidget):
         self.__curLenLbl.setText(self.__getMediaLengthHumanFriendly(filename))
         if self.__title_label:
             _, name = os.path.split(filename)
-            if self.__title_file_ext:
+            if not self.__title_file_ext:
                 self.__title_label.setText(name.split(".")[0])
             else:
                 self.__title_label.setText(name)
