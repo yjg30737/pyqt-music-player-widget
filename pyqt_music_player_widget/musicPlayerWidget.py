@@ -92,7 +92,7 @@ class MusicPlayerWidget(QWidget):
         self.__title_label = None
         if title:
             self.__title_label = QLabel()
-            self.__title_label.setAlignment(control_alignment)
+            self.__title_label.setAlignment(control_alignment | Qt.AlignmentFlag.AlignCenter)
             lay.addWidget(self.__title_label)
 
         lay.setContentsMargins(0, 0, 0, 0)
