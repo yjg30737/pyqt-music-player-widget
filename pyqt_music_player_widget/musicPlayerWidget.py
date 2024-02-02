@@ -1,3 +1,5 @@
+import os
+
 from mutagen import mp3
 import librosa
 
@@ -15,11 +17,11 @@ class MusicPlayerWidget(QWidget):
     positionUpdated = pyqtSignal(int)
     durationUpdated = pyqtSignal(int)
 
-    def __init__(self, slider=None, control_alignment=Qt.AlignCenter, volume=True):
+    def __init__(self, title=False, slider=None, control_alignment=Qt.AlignCenter, volume=True):
         super().__init__()
-        self.__initUi(control_alignment, slider, volume)
+        self.__initUi(control_alignment, title, slider, volume)
 
-    def __initUi(self, control_alignment, slider=None, volume=False, volume_width=100):
+    def __initUi(self, control_alignment, title, slider=None, volume=False, volume_width=100):
         self.__mediaPlayer = QMediaPlayer()
         self.__mediaPlayer.setNotifyInterval(1)
 
@@ -86,6 +88,13 @@ class MusicPlayerWidget(QWidget):
         lay.setAlignment(control_alignment)
         for btn in btns:
             lay.addWidget(btn)
+
+        self.__title_label = None
+        if title:
+            self.__title_label = QLabel()
+            self.__title_label.setAlignment(control_alignment)
+            lay.addWidget(self.__title_label)
+
         lay.setContentsMargins(0, 0, 0, 0)
 
         bottomWidget = QWidget()
@@ -171,6 +180,13 @@ class MusicPlayerWidget(QWidget):
         self.__mediaPlayer.setMedia(mediaContent)
         self.__playBtn.setEnabled(True)
         self.__curLenLbl.setText(self.__getMediaLengthHumanFriendly(filename))
+        if self.__title_label:
+            _, name = os.path.split(filename)
+            self.__title_label.setText(name)
+
+    def cleanTitle(self):
+        if self.__title_label:
+            self.__title_label.setText('')
 
     def getCurrentMediaPosition(self):
         return self.__mediaPlayer.position()
