@@ -14,11 +14,11 @@ class MusicPlayerWidget(QWidget):
     positionUpdated = pyqtSignal(int)
     durationUpdated = pyqtSignal(int)
 
-    def __init__(self, slider=None, volume=True):
+    def __init__(self, slider=None, control_alignment=Qt.AlignCenter, volume=True):
         super().__init__()
-        self.__initUi(slider, volume)
+        self.__initUi(control_alignment, slider, volume)
 
-    def __initUi(self, slider=None, volume=False, volume_width=100):
+    def __initUi(self, control_alignment, slider=None, volume=False, volume_width=100):
         self.__mediaPlayer = QMediaPlayer()
         self.__mediaPlayer.setNotifyInterval(1)
 
@@ -82,7 +82,7 @@ class MusicPlayerWidget(QWidget):
         self.__stopBtn.clicked.connect(self.stop)
 
         lay = QHBoxLayout()
-        lay.setAlignment(Qt.AlignCenter)
+        lay.setAlignment(control_alignment)
         for btn in btns:
             lay.addWidget(btn)
         lay.setContentsMargins(0, 0, 0, 0)
