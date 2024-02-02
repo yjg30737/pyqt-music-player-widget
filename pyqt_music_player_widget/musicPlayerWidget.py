@@ -1,4 +1,5 @@
 from mutagen import mp3
+import librosa
 
 from PyQt5.QtCore import QUrl, pyqtSignal
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -101,8 +102,14 @@ class MusicPlayerWidget(QWidget):
         self.__mediaPlayer.durationChanged.connect(self.__updateDuration)
 
     def __getMediaLengthHumanFriendly(self, filename):
-        audio = mp3.MP3(filename)
-        media_length = audio.info.length
+        _filename = filename.lower()
+        if _filename.endswith(".mp3"):
+            audio = mp3.MP3(filename)
+            media_length = audio.info.length
+        elif _filename.endswith(".wav"):
+            media_length = librosa.get_duration(path=filename)
+        else:
+            raise TypeError(f"{filename} has unsupported file format")
 
         # convert second into hh:mm:ss
         h = int(media_length / 3600)
