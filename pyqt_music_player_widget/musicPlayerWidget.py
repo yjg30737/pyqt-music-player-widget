@@ -1,7 +1,7 @@
 import os
 
+import soundfile as sf
 from mutagen import mp3
-import librosa
 
 from PyQt5.QtCore import QUrl, pyqtSignal
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -117,7 +117,8 @@ class MusicPlayerWidget(QWidget):
             audio = mp3.MP3(filename)
             media_length = audio.info.length
         elif _filename.endswith(".wav"):
-            media_length = librosa.get_duration(path=filename)
+            f = sf.SoundFile(filename)
+            media_length = int(len(f)/f.samplerate)
         else:
             raise TypeError(f"{filename} has unsupported file format")
 
