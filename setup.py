@@ -23,6 +23,7 @@ setup(
     install_requires=[
         'PyQt5>=5.8',
         'mutagen>=1.45.1',
+        'librosa==0.10.1',
         'pyqt-media-slider @ git+https://github.com/nikonru/pyqt-media-slider',
         'pyqt-svg-button>=0.0.1',
         'absresgetter>=0.0.1'
