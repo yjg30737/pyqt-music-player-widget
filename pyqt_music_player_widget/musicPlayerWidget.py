@@ -17,8 +17,9 @@ class MusicPlayerWidget(QWidget):
     positionUpdated = pyqtSignal(int)
     durationUpdated = pyqtSignal(int)
 
-    def __init__(self, title=False, slider=None, control_alignment=Qt.AlignCenter, volume=True):
+    def __init__(self, title=False, title_file_ext=True, slider=None, control_alignment=Qt.AlignCenter, volume=True):
         super().__init__()
+        self.__title_file_ext = title_file_ext
         self.__initUi(control_alignment, title, slider, volume)
 
     def __initUi(self, control_alignment, title, slider=None, volume=False, volume_width=100):
@@ -182,7 +183,10 @@ class MusicPlayerWidget(QWidget):
         self.__curLenLbl.setText(self.__getMediaLengthHumanFriendly(filename))
         if self.__title_label:
             _, name = os.path.split(filename)
-            self.__title_label.setText(name)
+            if self.__title_file_ext:
+                self.__title_label.setText(name.split(".")[0])
+            else:
+                self.__title_label.setText(name)
 
     def cleanTitle(self):
         if self.__title_label:
