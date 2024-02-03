@@ -17,12 +17,13 @@ class MusicPlayerWidget(QWidget):
     positionUpdated = pyqtSignal(int)
     durationUpdated = pyqtSignal(int)
 
-    def __init__(self, title=False, title_file_ext=True, slider=None, control_alignment=Qt.AlignCenter, volume=True):
+    def __init__(self, title=False, title_file_ext=True, slider=None, control_alignment=Qt.AlignCenter, volume=True,
+                 style=None):
         super().__init__()
         self.__title_file_ext = title_file_ext
-        self.__initUi(control_alignment, title, slider, volume)
+        self.__initUi(control_alignment, title, slider, volume, style=style)
 
-    def __initUi(self, control_alignment, title, slider=None, volume=False, volume_width=100):
+    def __initUi(self, control_alignment, title, slider=None, volume=False, volume_width=100, style=None):
         self.__mediaPlayer = QMediaPlayer()
         self.__mediaPlayer.setNotifyInterval(1)
 
@@ -30,7 +31,7 @@ class MusicPlayerWidget(QWidget):
         self.__curLenLbl = QLabel()
         self.__slash = QLabel()
 
-        self.__slider = slider if slider else MediaSlider()
+        self.__slider = slider if slider else MediaSlider(style=style)
         self.__slider.pressed.connect(self.__handlePressed)
         self.__slider.dragged.connect(self.__handleDragged)
         self.__slider.released.connect(self.__handleReleased)
@@ -51,7 +52,7 @@ class MusicPlayerWidget(QWidget):
             self.__volume = 100
             self.__mute = False
 
-            self.__volume_slider = MediaSlider()
+            self.__volume_slider = MediaSlider(style=style)
             self.__volume_slider.setFixedWidth(volume_width)
             self.__volume_slider.setSliderPosition(self.__volume * 100)
             self.__volume_slider.released.connect(self.__volumeChanged)
@@ -82,7 +83,7 @@ class MusicPlayerWidget(QWidget):
 
         btns = [self.__playBtn, self.__stopBtn]
 
-        self.__playBtn.clicked.connect(self.togglePlayback)
+        self.__playBtn.clicked.connect(self.__togglePlayback)
         self.__stopBtn.clicked.connect(self.stop)
 
         lay = QHBoxLayout()
@@ -211,7 +212,7 @@ class MusicPlayerWidget(QWidget):
         self.__playBtn.setObjectName('play')
         self.__mediaPlayer.pause()
 
-    def togglePlayback(self):
+    def __togglePlayback(self):
         if self.__mediaPlayer.mediaStatus() == QMediaPlayer.NoMedia:
             pass  # or openFile()
         elif self.__mediaPlayer.state() == QMediaPlayer.PlayingState:
