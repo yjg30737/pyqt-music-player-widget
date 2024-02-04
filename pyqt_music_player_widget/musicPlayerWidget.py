@@ -140,6 +140,15 @@ class MusicPlayerWidget(QWidget):
         self.__stopBtn.setEnabled(value)
         self.__slider.setEnabled(value)
 
+    def getVolume(self):
+        return self.__volume
+
+    def setVolume(self, value):
+        assert 0 <= value <= 100
+        self.__volume = int(value)
+        self.__mediaPlayer.setVolume(self.__volume)
+        self.__volume_slider.setSliderPosition(self.__volume * 100)
+
     def __volumeChanged(self, pos):
         self.__volume = pos // 100
         self.__mediaPlayer.setVolume(self.__volume)
