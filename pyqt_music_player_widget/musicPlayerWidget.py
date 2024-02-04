@@ -134,8 +134,6 @@ class MusicPlayerWidget(QWidget):
         return song_length
 
     def setEnabledWithoutMute(self, value):
-        self.__muteBtn.setEnabled(True)
-        self.__volume_slider.setEnabled(True)
         self.__playBtn.setEnabled(value)
         self.__stopBtn.setEnabled(value)
         self.__slider.setEnabled(value)
