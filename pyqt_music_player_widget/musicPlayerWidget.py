@@ -143,6 +143,9 @@ class MusicPlayerWidget(QWidget):
     def getVolume(self):
         return self.__volume
 
+    def getMute(self):
+        return self.__volume_slider.isEnabled()
+
     def setVolume(self, value):
         assert 0 <= value <= 100
         self.__volume = int(value)
