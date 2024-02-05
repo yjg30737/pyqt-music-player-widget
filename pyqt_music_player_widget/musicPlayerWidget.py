@@ -203,7 +203,7 @@ class MusicPlayerWidget(QWidget):
         self.__slider.setPageStep(duration // 1000)
         self.durationUpdated.emit(duration)
 
-    def setMedia(self, filename):
+    def setMedia(self, filename, title=None):
         mediaContent = QMediaContent(QUrl.fromLocalFile(filename))  # it also can be used as playlist
         self.__mediaPlayer.setMedia(mediaContent)
         self.__playBtn.setEnabled(True)
@@ -213,6 +213,10 @@ class MusicPlayerWidget(QWidget):
                 name = pathlib.Path(filename).stem
             else:
                 name = pathlib.Path(filename).name
+            if title:
+                self.__title_label.setText(title)
+            else:
+                self.__title_label.setText(name)
             self.__title_label.setText(name)
 
     def cleanTitle(self):
