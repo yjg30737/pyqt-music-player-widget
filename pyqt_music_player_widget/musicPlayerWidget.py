@@ -1,4 +1,4 @@
-import os
+import pathlib
 
 import soundfile as sf
 from mutagen import mp3
@@ -209,11 +209,11 @@ class MusicPlayerWidget(QWidget):
         self.__playBtn.setEnabled(True)
         self.__curLenLbl.setText(self.__getMediaLengthHumanFriendly(filename))
         if self.__title_label:
-            _, name = os.path.split(filename)
             if not self.__title_file_ext:
-                self.__title_label.setText(name.split(".")[0])
+                name = pathlib.Path(filename).stem
             else:
-                self.__title_label.setText(name)
+                name = pathlib.Path(filename).name
+            self.__title_label.setText(name)
 
     def cleanTitle(self):
         if self.__title_label:
