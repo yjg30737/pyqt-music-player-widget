@@ -18,12 +18,12 @@ class MusicPlayerWidget(QWidget):
     durationUpdated = pyqtSignal(int)
 
     def __init__(self, title=False, title_file_ext=True, slider=None, control_alignment=Qt.AlignCenter, volume=True,
-                 style=None):
+                 style=None, spacing=(5, 5, 10)):
         super().__init__()
         self.__title_file_ext = title_file_ext
-        self.__initUi(control_alignment, title, slider, volume, style=style)
+        self.__initUi(control_alignment, title, spacing, slider=slider, volume=volume, style=style)
 
-    def __initUi(self, control_alignment, title, slider=None, volume=False, volume_width=100, style=None):
+    def __initUi(self, control_alignment, title, spacing, slider=None, volume=False, volume_width=100, style=None):
         self.__mediaPlayer = QMediaPlayer()
         self.__mediaPlayer.setNotifyInterval(1)
 
@@ -36,19 +36,24 @@ class MusicPlayerWidget(QWidget):
         self.__slider.dragged.connect(self.__handleDragged)
         self.__slider.released.connect(self.__handleReleased)
 
-        self.__zeroTimeStr = '00:00:00'
+        self.__zeroTimeStr = '00:00'
 
+        timer_layout = QHBoxLayout()
         self.__timerLbl.setText(self.__zeroTimeStr)
         self.__curLenLbl.setText(self.__zeroTimeStr)
         self.__slash.setText("/")
+        timer_layout.addWidget(self.__timerLbl)
+        timer_layout.addWidget(self.__slash)
+        timer_layout.addWidget(self.__curLenLbl)
+
+        timer_layout.setSpacing(spacing[0])
 
         lay = QHBoxLayout()
         lay.addWidget(self.__slider)
-        lay.addWidget(self.__timerLbl)
-        lay.addWidget(self.__slash)
-        lay.addWidget(self.__curLenLbl)
+        lay.addLayout(timer_layout)
 
         if volume:
+            mute_layout = QHBoxLayout()
             self.__volume = 100
             self.__mute = False
 
@@ -64,9 +69,12 @@ class MusicPlayerWidget(QWidget):
 
             self.__muteBtn.clicked.connect(self.__toggleMute)
 
-            lay.addWidget(self.__muteBtn)
-            lay.addWidget(self.__volume_slider)
+            mute_layout.addWidget(self.__muteBtn)
+            mute_layout.addWidget(self.__volume_slider)
+            mute_layout.setSpacing(spacing[1])
+            lay.addLayout(mute_layout)
 
+        lay.setSpacing(spacing[2])
         lay.setContentsMargins(0, 0, 0, 0)
 
         topWidget = QWidget()
@@ -129,7 +137,7 @@ class MusicPlayerWidget(QWidget):
         m = int(media_length / 60)
         media_length -= (m * 60)
         s = media_length
-        song_length = '{:0>2d}:{:0>2d}:{:0>2d}'.format(int(h), int(m), int(s))
+        song_length = '{:0>2d}:{:0>2d}'.format(int(m), int(s))
 
         return song_length
 
@@ -180,7 +188,7 @@ class MusicPlayerWidget(QWidget):
         minutes = int(minutes)
         hours = (millis / (1000 * 60 * 60)) % 24
 
-        return "%02d:%02d:%02d" % (hours, minutes, seconds)
+        return "%02d:%02d" % (minutes, seconds)
 
     def __updatePosition(self, pos):
         self.__slider.setValue(pos)
