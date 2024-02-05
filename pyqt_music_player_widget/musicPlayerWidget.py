@@ -18,7 +18,7 @@ class MusicPlayerWidget(QWidget):
     durationUpdated = pyqtSignal(int)
 
     def __init__(self, title=False, title_file_ext=True, slider=None, control_alignment=Qt.AlignCenter, volume=True,
-                 style=None, spacing=(5, 5, 10)):
+                 style=None, spacing=(5, 5, 10, 30)):
         super().__init__()
         self.__title_file_ext = title_file_ext
         self.__initUi(control_alignment, title, spacing, slider=slider, volume=volume, style=style)
@@ -68,7 +68,7 @@ class MusicPlayerWidget(QWidget):
             self.__muteBtn.setObjectName('mute')
 
             self.__muteBtn.clicked.connect(self.__toggleMute)
-
+            self.__muteBtn.setFixedWidth(spacing[3])
             mute_layout.addWidget(self.__muteBtn)
             mute_layout.addWidget(self.__volume_slider)
             mute_layout.setSpacing(spacing[1])
