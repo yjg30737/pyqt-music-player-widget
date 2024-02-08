@@ -8,13 +8,11 @@ PyQt5 >= 5.8
 `python -m pip install git+https://github.com/nikonru/pyqt-music-player-widget --upgrade`
 
 ## Included Packages
-* <a href="https://mutagen.readthedocs.io/en/latest/index.html">mutagen</a>
+* <a href="https://github.com/beetbox/audioread.git">audioread</a>
 * <a href="https://github.com/yjg30737/pyqt-media-slider.git">pyqt-media-slider</a>
 * <a href="https://github.com/yjg30737/pyqt-svg-button.git">pyqt-svg-button</a>
 
-This is using `mutagen` to get the full length of the media.
-
-This only works for mp3 extension.
+This is using `audioread` to get the full length of the media.
 
 ## Method/Signal Overview
 * Methods - `play()`, `pause()`, `stop()`

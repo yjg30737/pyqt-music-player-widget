@@ -1,7 +1,4 @@
-import pathlib
-
-import soundfile as sf
-from mutagen import mp3
+import audioread
 
 from PyQt5.QtCore import QUrl, pyqtSignal
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -121,15 +118,8 @@ class MusicPlayerWidget(QWidget):
         self.__mediaPlayer.durationChanged.connect(self.__updateDuration)
 
     def __getMediaLengthHumanFriendly(self, filename):
-        _filename = filename.lower()
-        if _filename.endswith(".mp3"):
-            audio = mp3.MP3(filename)
-            media_length = audio.info.length
-        elif _filename.endswith(".wav"):
-            f = sf.SoundFile(filename)
-            media_length = int(len(f)/f.samplerate)
-        else:
-            raise TypeError(f"{filename} has unsupported file format")
+        audio = audioread.audio_open(filename)
+        media_length = audio.duration
 
         # convert second into hh:mm:ss
         h = int(media_length / 3600)
