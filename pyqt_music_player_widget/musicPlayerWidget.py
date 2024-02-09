@@ -1,4 +1,4 @@
-from mutagen import mp3
+import audioread
 
 from PyQt5.QtCore import QUrl, pyqtSignal
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -78,8 +78,8 @@ class MusicPlayerWidget(QWidget):
         self.__mediaPlayer.durationChanged.connect(self.__updateDuration)
 
     def __getMediaLengthHumanFriendly(self, filename):
-        audio = mp3.MP3(filename)
-        media_length = audio.info.length
+        audio = audioread.audio_open(filename)
+        media_length = audio.duration
 
         # convert second into hh:mm:ss
         h = int(media_length / 3600)
