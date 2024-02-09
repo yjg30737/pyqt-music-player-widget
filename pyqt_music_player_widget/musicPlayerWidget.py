@@ -129,7 +129,7 @@ class MusicPlayerWidget(QWidget):
     def __updateDuration(self, duration):
         self.__slider.setRange(0, duration)
         self.__slider.setEnabled(duration > 0)
-        self.__slider.setPageStep(duration / 1000)
+        self.__slider.setPageStep(duration // 1000)
         self.durationUpdated.emit(duration)
 
     def setMedia(self, filename):
