@@ -1,12 +1,14 @@
+import pathlib
+
 import audioread
 
-from PyQt5.QtCore import QUrl, pyqtSignal
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout
+from PyQt6.QtCore import QUrl, pyqtSignal
+from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout
 
 from pyqt_media_slider.mediaSlider import MediaSlider
 from pyqt_svg_button.svgButton import SvgButton
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 
 class MusicPlayerWidget(QWidget):
@@ -14,7 +16,7 @@ class MusicPlayerWidget(QWidget):
     positionUpdated = pyqtSignal(int)
     durationUpdated = pyqtSignal(int)
 
-    def __init__(self, title=False, title_file_ext=True, slider=None, control_alignment=Qt.AlignCenter, volume=True,
+    def __init__(self, title=False, title_file_ext=True, slider=None, control_alignment=Qt.AlignmentFlag.AlignCenter, volume=True,
                  style=None, spacing=(5, 5, 10, 30)):
         super().__init__()
         self.__title_file_ext = title_file_ext
@@ -22,7 +24,8 @@ class MusicPlayerWidget(QWidget):
 
     def __initUi(self, control_alignment, title, spacing, slider=None, volume=False, volume_width=100, style=None):
         self.__mediaPlayer = QMediaPlayer()
-        self.__mediaPlayer.setNotifyInterval(1)
+        self.__audioOutput = QAudioOutput()
+        self.__mediaPlayer.setAudioOutput(self.__audioOutput)
 
         self.__timerLbl = QLabel()
         self.__curLenLbl = QLabel()
@@ -145,12 +148,12 @@ class MusicPlayerWidget(QWidget):
     def setVolume(self, value):
         assert 0 <= value <= 100
         self.__volume = int(value)
-        self.__mediaPlayer.setVolume(self.__volume)
+        self.__audioOutput.setVolume(self.__volume)
         self.__volume_slider.setSliderPosition(self.__volume * 100)
 
     def __volumeChanged(self, pos):
         self.__volume = pos // 100
-        self.__mediaPlayer.setVolume(self.__volume)
+        self.__audioOutput.setVolume(self.__volume)
 
     def __handlePressed(self, pos):
         self.__mediaPlayer.pause()
@@ -194,8 +197,8 @@ class MusicPlayerWidget(QWidget):
         self.durationUpdated.emit(duration)
 
     def setMedia(self, filename, title=None):
-        mediaContent = QMediaContent(QUrl.fromLocalFile(filename))  # it also can be used as playlist
-        self.__mediaPlayer.setMedia(mediaContent)
+        mediaContent = QUrl.fromLocalFile(filename)  # it also can be used as playlist
+        self.__mediaPlayer.setSource(mediaContent)
         self.__playBtn.setEnabled(True)
         self.__curLenLbl.setText(self.__getMediaLengthHumanFriendly(filename))
         if self.__title_label:
@@ -232,9 +235,9 @@ class MusicPlayerWidget(QWidget):
         self.__mediaPlayer.pause()
 
     def togglePlayback(self):
-        if self.__mediaPlayer.mediaStatus() == QMediaPlayer.NoMedia:
+        if self.__mediaPlayer.mediaStatus() == QMediaPlayer.MediaStatus.NoMedia:
             pass  # or openFile()
-        elif self.__mediaPlayer.state() == QMediaPlayer.PlayingState:
+        elif self.__mediaPlayer.playbackState() == QMediaPlayer.PlaybackState.PlayingState:
             self.pause()
         else:
             self.play()
@@ -245,11 +248,11 @@ class MusicPlayerWidget(QWidget):
 
         if self.__mute:
             self.__volume_slider.setSliderPosition(0)
-            self.__mediaPlayer.setVolume(0)
+            self.__audioOutput.setVolume(0)
             self.__muteBtn.setIcon('ico/mute.svg')
         else:
             self.__volume_slider.setSliderPosition(self.__volume * 100)
-            self.__mediaPlayer.setVolume(self.__volume)
+            self.__audioOutput.setVolume(self.__volume)
             self.__muteBtn.setIcon('ico/volume.svg')
 
         self.__muteBtn.setObjectName('mute')
