@@ -21,7 +21,7 @@ setup(
     long_description_content_type='text/markdown',
     long_description=long_description,
     install_requires=[
-        'PyQt5>=5.8',
+        'PyQt6>=6.5.0',
         'audioread>=3.0.1',
         'pyqt-media-slider>=0.0.1',
         'pyqt-svg-button>=0.0.1'

@@ -2,7 +2,7 @@
 PyQt music player widget
 
 ## Requirements
-PyQt5 >= 5.8
+PyQt6 >= 6.5.0
 
 ## Setup
 `python -m pip install git+https://github.com/nikonru/pyqt-music-player-widget --upgrade`
