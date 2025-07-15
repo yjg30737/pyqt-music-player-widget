@@ -31,7 +31,7 @@ class MusicPlayerWidget(QWidget):
         self.__curLenLbl = QLabel()
         self.__slash = QLabel()
 
-        self.__slider = slider if slider else MediaSlider(style=style)
+        self.__slider = slider if slider else MediaSlider()
         self.__slider.pressed.connect(self.__handlePressed)
         self.__slider.dragged.connect(self.__handleDragged)
         self.__slider.released.connect(self.__handleReleased)
@@ -57,7 +57,7 @@ class MusicPlayerWidget(QWidget):
             self.__volume = 100
             self.__mute = False
 
-            self.__volume_slider = MediaSlider(style=style)
+            self.__volume_slider = MediaSlider()
             self.__volume_slider.setFixedWidth(volume_width)
             self.__volume_slider.setSliderPosition(self.__volume * 100)
             self.__volume_slider.released.connect(self.__volumeChanged)
