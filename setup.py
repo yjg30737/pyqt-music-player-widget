@@ -16,12 +16,12 @@ setup(
     license='MIT',
     packages=find_packages(),
     description='PyQt music player widget',
-    package_data={'pyqt_music_player_widget.ico': ['pause.svg', 'play.svg', 'stop.svg']},
-    url='https://github.com/yjg30737/pyqt-music-player-widget.git',
+    package_data={'pyqt_music_player_widget.ico': ['pause.svg', 'play.svg', 'stop.svg', 'volume.svg', 'mute.svg']},
+    url='https://github.com/nikonru/pyqt-music-player-widget.git',
     long_description_content_type='text/markdown',
     long_description=long_description,
     install_requires=[
-        'PyQt5>=5.8',
+        'PyQt6>=6.5.0',
         'audioread>=3.0.1',
         'pyqt-media-slider>=0.0.1',
         'pyqt-svg-button>=0.0.1'

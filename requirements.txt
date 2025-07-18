@@ -1,5 +1,5 @@
 audioread>=3.0.1
 pyqt-media-slider>=0.0.1
 pyqt-svg-button>=0.0.1
-setuptools~=67.8.0
-PyQt5~=5.15.7
+setuptools~=57.4.0
+PyQt6>=6.5.0

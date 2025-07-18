@@ -2,10 +2,10 @@
 PyQt music player widget
 
 ## Requirements
-PyQt5 >= 5.8
+PyQt6 >= 6.5.0
 
 ## Setup
-`python -m pip install pyqt-music-player-widget`
+`python -m pip install git+https://github.com/nikonru/pyqt-music-player-widget --upgrade`
 
 ## Included Packages
 * <a href="https://github.com/beetbox/audioread.git">audioread</a>
@@ -21,7 +21,6 @@ This is using `audioread` to get the full length of the media.
 ## Example
 ```python
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QApplication, QFormLayout
-from pyqt_find_path_widget import FindPathWidget  # https://github.com/yjg30737/pyqt-find-path-widget.git
 
 from pyqt_music_player_widget import MusicPlayerWidget
 
@@ -32,27 +31,17 @@ class MusicPlayerExample(QWidget):
         self.__initUi()
 
     def __initUi(self):
-        self.__findPathWidget = FindPathWidget()
-        self.__findPathWidget.setExtOfFiles('Audio Files (*.mp3)')
-        self.__findPathWidget.added.connect(self.__added)
 
         lay = QFormLayout()
-        lay.addRow('Audio File', self.__findPathWidget)
         lay.setContentsMargins(0, 0, 0, 0)
-
-        pathFindWidget = QWidget()
-        pathFindWidget.setLayout(lay)
 
         self.__musicPlayerWidget = MusicPlayerWidget()
 
         lay = QVBoxLayout()
-        lay.addWidget(pathFindWidget)
         lay.addWidget(self.__musicPlayerWidget)
 
         self.setLayout(lay)
-
-    def __added(self, filename: str):
-        self.__musicPlayerWidget.setMedia(filename)
+        self.__musicPlayerWidget.setMedia("./music.mp3")
 
 
 if __name__ == "__main__":
@@ -63,8 +52,3 @@ if __name__ == "__main__":
     player.show()
     sys.exit(app.exec_())
 ```
-
-Result
-
-![image](https://user-images.githubusercontent.com/55078043/180103955-9e2012ce-33dc-4eca-9d28-446b1119404e.png)
-
